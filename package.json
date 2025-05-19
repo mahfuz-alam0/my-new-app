@@ -11,6 +11,19 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahfuz-alam0/my-new-app"
+  },
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "mahfuz-alam0",
+        "repo": "my-new-app"
+      }
+    ]
+  },
   "keywords": [],
   "author": {
     "name": "Mahfuz Alam",
@@ -26,11 +39,14 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
     "@electron-forge/plugin-fuses": "^7.8.1",
     "@electron-forge/plugin-vite": "^7.8.1",
+    "@electron-forge/publisher-github": "^7.8.1",
     "@electron/fuses": "^1.8.0",
     "electron": "36.2.1",
     "vite": "^5.4.19"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "electron-updater": "^6.6.2",
+    "update-electron-app": "^3.1.1"
   }
 }
