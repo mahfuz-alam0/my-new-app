@@ -1,29 +1,18 @@
 window.electronAPI.onUpdateAvailable(() => {
-  const notification = document.getElementById('updateNotification');
-  notification.style.display = 'block';
+  document.getElementById('update-status').innerText = 'Update available... downloading.';
 });
 
-window.electronAPI.onUpdateProgress((progress) => {
-  const progressBar = document.getElementById('downloadProgress');
-  progressBar.style.width = `${Math.floor(progress.percent)}%`;
+window.electronAPI.onUpdateProgress((event, progress) => {
+  document.getElementById('update-status').innerText = `Downloading: ${Math.round(progress.percent)}%`;
 });
 
 window.electronAPI.onUpdateDownloaded(() => {
-  const restartButton = document.getElementById('restartButton');
-  restartButton.style.display = 'block';
-  document.getElementById('updateMessage').textContent = 'Update Downloaded!';
+  document.getElementById('update-status').innerText = 'Update downloaded. Restarting...';
+  setTimeout(() => {
+    window.electronAPI.restartApp();
+  }, 3000);
 });
 
-window.electronAPI.onUpdateError((error) => {
-  console.error('Update failed:', error);
-  alert(`Update failed: ${error}`);
-});
-
-document.getElementById('restartButton').addEventListener('click', () => {
-  window.electronAPI.restartApp();
-});
-
-// Cleanup listeners when unmounting
-window.addEventListener('beforeunload', () => {
-  window.electronAPI.removeAllListeners();
+window.electronAPI.onUpdateError((event, error) => {
+  document.getElementById('update-status').innerText = `Update failed: ${error.message}`;
 });
